@@ -31,9 +31,9 @@ class CouchDBStorage(Storage):
     CouchDBStorage - a Django Storage class for CouchDB.
 
     The CouchDBStorage can be configured in settings.py, e.g.::
-    
+
         COUCHDB_STORAGE_OPTIONS = {
-            'server': "http://example.org", 
+            'server': "http://example.org",
             'database': 'database_name'
         }
 
@@ -76,9 +76,9 @@ class CouchDBStorage(Storage):
         return 0
 
     def url(self, name):
-        return urljoin(self.base_url, 
-                       os.path.join(quote_plus(self.db.name), 
-                       quote_plus(name), 
+        return urljoin(self.base_url,
+                       os.path.join(quote_plus(self.db.name),
+                       quote_plus(name),
                        'content'))
 
     def delete(self, name):
