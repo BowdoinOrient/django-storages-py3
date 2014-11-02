@@ -1,4 +1,7 @@
-import urllib.parse
+try:
+    import urllibparse as urllibparse
+except:
+    import urlparse as urllibparse
 import mimetypes
 from io import StringIO
 
@@ -51,7 +54,7 @@ class MogileFSStorage(Storage):
             return None
     
     def url(self, filename):
-        return urllib.parse.urljoin(self.base_url, filename).replace('\\', '/')
+        return urllibparse.urljoin(self.base_url, filename).replace('\\', '/')
 
     def open(self, filename, mode='rb'):
         raise NotImplemented

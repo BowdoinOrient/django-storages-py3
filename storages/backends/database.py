@@ -1,7 +1,10 @@
 # DatabaseStorage for django.
 # 2009 (c) GameKeeper Gambling Ltd, Ivanov E.
 import io
-import urllib.parse
+try:
+    import urllibparse as urllibparse
+except:
+    import urlparse as urllibparse
 
 from django.conf import settings
 from django.core.files import File
@@ -122,7 +125,7 @@ that returns an image as result.
     def url(self, name):
         if self.base_url is None:
             raise ValueError("This file is not accessible via a URL.")
-        return urllib.parse.urljoin(self.base_url, name).replace('\\', '/')
+        return urllibparse.urljoin(self.base_url, name).replace('\\', '/')
     
     def size(self, name):
         row = self.cursor.execute("SELECT %s from %s where %s = '%s'"%(self.size_column,self.db_table,self.fname_column,name)).fetchone()

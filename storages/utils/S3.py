@@ -17,8 +17,11 @@ try:
 except ImportError:
     import sha
 import time
-import urllib.request, urllib.parse, urllib.error
-import urllib.parse
+import urllib.request, urllibparse, urllib.error
+try:
+    import urllibparse as urllibparse
+except:
+    import urlparse as urllibparse
 import xml.sax
 
 DEFAULT_HOST = 's3.amazonaws.com'
@@ -64,7 +67,7 @@ def canonical_string(method, bucket="", key="", query_args={}, headers={}, expir
         buf += "/%s" % bucket
 
     # add the key.  even if it doesn't exist, add the slash
-    buf += "/%s" % urllib.parse.quote_plus(key)
+    buf += "/%s" % urllibparse.quote_plus(key)
 
     # handle special query string arguments
 
@@ -85,7 +88,7 @@ def encode(aws_secret_access_key, str, urlencode=False):
     myhmac = hmac.new(aws_secret_access_key.encode('ascii'), str.encode('ascii'), sha).digest()
     b64_hmac = base64.encodebytes(myhmac).decode('ascii').strip()
     if urlencode:
-        return urllib.parse.quote_plus(b64_hmac)
+        return urllibparse.quote_plus(b64_hmac)
     else:
         return b64_hmac
 
@@ -103,7 +106,7 @@ def query_args_hash_to_string(query_args):
     for k, v in list(query_args.items()):
         piece = k
         if v != None:
-            piece += "=%s" % urllib.parse.quote_plus(str(v))
+            piece += "=%s" % urllibparse.quote_plus(str(v))
         pairs.append(piece)
 
     return '&'.join(pairs)
@@ -253,7 +256,7 @@ class AWSAuthConnection:
 
         # add the slash after the bucket regardless
         # the key will be appended if it is non-empty
-        path += "/%s" % urllib.parse.quote_plus(key)
+        path += "/%s" % urllibparse.quote_plus(key)
 
 
         # build the path_argument string
@@ -285,7 +288,7 @@ class AWSAuthConnection:
             # (close connection)
             resp.read()
             scheme, host, path, params, query, fragment \
-                    = urllib.parse.urlparse(location)
+                    = urllibparse.urlparse(location)
             if scheme == "http":    is_secure = True
             elif scheme == "https": is_secure = False
             else: raise IOError("Not http/https: " + location)
@@ -402,7 +405,7 @@ class QueryStringAuthGenerator:
 
         url = CallingFormat.build_url_base(self.protocol, self.server, self.port, bucket, self.calling_format)
 
-        url += "/%s" % urllib.parse.quote_plus(key, safe='/')
+        url += "/%s" % urllibparse.quote_plus(key, safe='/')
 
         query_args['Signature'] = encoded_canonical
         query_args['Expires'] = expires

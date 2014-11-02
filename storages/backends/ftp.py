@@ -16,7 +16,10 @@
 
 import os
 import ftplib
-import urllib.parse
+try:
+    import urllibparse as urllibparse
+except:
+    import urlparse as urllibparse
 
 try:
     from io import StringIO
@@ -44,7 +47,7 @@ class FTPStorage(Storage):
 
     def _decode_location(self, location):
         """Return splitted configuration data from location."""
-        splitted_url = urllib.parse.urlparse(location)
+        splitted_url = urllibparse.urlparse(location)
         config = {}
 
         if splitted_url.scheme not in ('ftp', 'aftp'):
@@ -219,7 +222,7 @@ class FTPStorage(Storage):
     def url(self, name):
         if self._base_url is None:
             raise ValueError("This file is not accessible via a URL.")
-        return urllib.parse.urljoin(self._base_url, name).replace('\\', '/')
+        return urllibparse.urljoin(self._base_url, name).replace('\\', '/')
 
 
 class FTPStorageFile(File):

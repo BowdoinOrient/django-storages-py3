@@ -5,7 +5,10 @@ Created by Christian Klein.
 """
 import os
 from io import StringIO
-from urllib.parse import urljoin
+try:
+    from urllib.parse import urljoin
+except:
+    from urlparse import urljoin
 from urllib.parse import quote_plus
 
 from django.conf import settings

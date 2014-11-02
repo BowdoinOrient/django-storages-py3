@@ -73,7 +73,10 @@ def safe_join(base, *paths):
     Paths outside the base path indicate a possible security
     sensitive operation.
     """
-    from urllib.parse import urljoin
+    try:
+        from urllib.parse import urljoin
+    except:
+        from urlparse import urljoin
     base_path = force_unicode(base)
     base_path = base_path.rstrip('/')
     paths = [force_unicode(p) for p in paths]
