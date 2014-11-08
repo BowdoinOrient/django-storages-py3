@@ -1,10 +1,7 @@
 import os
 import mimetypes
 
-try:
-    from io import StringIO, BytesIO
-except ImportError:
-    from io import StringIO, BytesIO  # noqa
+from io import StringIO, BytesIO
 
 from django.conf import settings
 from django.core.files.base import File
