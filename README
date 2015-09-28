@@ -2,6 +2,8 @@
 Django storages
 ===============
 
+Unsupported, use https://github.com/jschneier/django-storages instead.
+
 Install
 =======
 
